@@ -20,6 +20,13 @@ public class Encrypt {
                 .modPow(BigInteger.valueOf(e), BigInteger.valueOf(n)).intValue();
     }
 
+    /**
+     *
+     * @param message - сообщение для шифрование
+     * @param e - открытая экспонента
+     * @param n - произведение простых чисел p и q
+     * @return лист шифрованных значений(шифрованное сообщение)
+     */
     public static ArrayList<Integer> encryptionList(String message, int e, int n) {
         ArrayList<Integer> encryptValues = new ArrayList<>();
 

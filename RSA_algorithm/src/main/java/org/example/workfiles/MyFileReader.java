@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class MyFileReader {
     private static final String path = "src/main/resources/alphabet.txt";
@@ -22,6 +24,19 @@ public class MyFileReader {
         }
 
         return alphabetMap;
+    }
+
+    /**
+     * меняем местами ключи и значения карты функции alphabet
+     */
+    public static HashMap<Integer, Character> swappedAlphabet() {
+        HashMap<Character, Integer> alphabet = alphabet();
+        HashMap<Integer, Character> swappedAlphabet = new HashMap<>();
+
+        for(Map.Entry<Character, Integer> entry : alphabet.entrySet())
+            swappedAlphabet.put(entry.getValue(), entry.getKey());
+
+        return swappedAlphabet;
     }
 
     /**

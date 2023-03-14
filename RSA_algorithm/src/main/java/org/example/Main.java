@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.logic.Decrypt;
 import org.example.logic.Encrypt;
 import org.example.util.Printer;
 import org.example.workfiles.MyFileReader;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 
 public class Main {
     private static final HashMap<Character, Integer> alphabet = MyFileReader.alphabet();
-    private static final String message = "КАФСИ";
+    private static final String message = "Я СПРОСИЛ У ЯСЕНЯ";
 
     //произведние p * q
     private int n;
@@ -25,19 +26,19 @@ public class Main {
         final int q = 13;
         int n = p * q;
         int euler_function_result = (p-1) * (q - 1);
+        int e = openExhibitor(euler_function_result);
+        int d = define_d(euler_function_result, e);
 
         System.out.println("euler_fun_result = " + euler_function_result);
-        int e = openExhibitor(euler_function_result);
 
 
-        Printer.printArrayList(Encrypt.encryptionList(message, e, n));
-    }
+        ArrayList<Integer> encryptionList = Encrypt.encryptionList(message, e, n);
+        System.out.println("Зашифрованное сообщение: ");
+        Printer.printArrayList(encryptionList);
 
-    public static void rsa_algorithm() {
-        int p = 7;
-        int q = 13;
-        int n = p * q;
-        int fun_n = (p-1)*(q-1);
+        String decryptMessage = Decrypt.decryptionMessage(encryptionList, d, n);
+        System.out.println("Расшифрованное сообщение:" + decryptMessage);
+
     }
 
     /**
@@ -60,7 +61,7 @@ public class Main {
     }
 
     /**
-     * определяем открытую эскпоненту
+     * определяем открытую эскпоненту e (взаимное-простое с euler_function_result число)
      * (взаимно простое со значением функции эйлера)
      */
     public static int openExhibitor(int a) {
@@ -74,6 +75,7 @@ public class Main {
 
         return 1;
     }
+
 
     /**
      * d = (k*euler_function(n) + 1) / e
@@ -94,6 +96,8 @@ public class Main {
 
         return (int)d;
     }
+
+
 
 
 
